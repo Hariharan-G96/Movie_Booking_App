@@ -1,0 +1,33 @@
+{
+  "name": "movie_booking_app",
+  "version": "1.0.0",
+  "description": "Backend for movie booking app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devStart" : "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hariharan-G96/Movie_Booking_App.git"
+  },
+  "keywords": [
+    "Movie",
+    "Booking"
+  ],
+  "author": "Hariharan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hariharan-G96/Movie_Booking_App/issues"
+  },
+  "homepage": "https://github.com/Hariharan-G96/Movie_Booking_App#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
