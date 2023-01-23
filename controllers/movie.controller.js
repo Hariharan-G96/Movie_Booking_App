@@ -5,7 +5,7 @@ exports.createMovie = async (req, res) => {
         const movie = await Movie.create(req.body);
         res.status(201).send(movie)
     } catch(err){
-        console.log('Error while creating a movie');
+        console.log('Error while creating a movie', err.message);
         res.status(500).send({
             message : 'Internal Server Error'
         })
@@ -23,7 +23,7 @@ exports.getAllMovies = async (req, res) => {
         const movies = await Movie.find(query)
         res.status(200).send(movies);
     } catch(err){
-        console.log('Error in finding movies')
+        console.log('Error in finding movies', err.message)
         res.status(500).send({
             message : 'Internal Server Error'
         })
@@ -45,7 +45,7 @@ exports.getMovieById = async (req, res) => {
 
         res.status(200).send(movie);
     } catch(err){
-        console.log('Error in finding a movie')
+        console.log('Error in finding a movie', err.message)
         res.status(500).send({
             message : 'Internal Server Error'
         })
@@ -84,7 +84,7 @@ exports.updateMovie = async (req, res) => {
             updatedMovie : updatedMovie
         })
     } catch(err){
-        console.log('Error in updating a movie')
+        console.log('Error in updating a movie', err.message)
         res.status(500).send({
             message : 'Internal Server Error'
         })
@@ -101,7 +101,7 @@ exports.deleteMovie = async (req, res) => {
             message : `Movie with the id : ${req.params.id} has been deleted successfully!`
         })
     } catch(err){
-        console.log('Error in deleting a movie')
+        console.log('Error in deleting a movie', err.message)
         res.status(500).send({
             message : 'Internal Server Error'
         })

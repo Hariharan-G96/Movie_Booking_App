@@ -15,6 +15,7 @@ mongoose.connect(dbConfig.DB_URL, () => {
 })
 
 require('./routes/movie.route')(app)
+require('./routes/theatre.route')(app)
 
 app.get('/', (req, res) => {
     res.status(200).send("Inside Movie Booking Application")
