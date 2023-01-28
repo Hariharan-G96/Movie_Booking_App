@@ -4,6 +4,20 @@ const releaseStatus = {
     blocked : 'BLOCKED'
 }
 
+const userTypes = {
+    customer : "CUSTOMER",
+    client : "CLIENT",
+    admin : "ADMIN"
+}
+
+const userStatus = {
+    pending : "PENDING",
+    approved : "APPROVED",
+    rejected : "REJECTED"
+}
+
 module.exports = {
-    releaseStatus : releaseStatus
+    releaseStatus : releaseStatus,
+    userTypes : userTypes,
+    userStatus : userStatus
 }

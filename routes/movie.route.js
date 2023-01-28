@@ -7,4 +7,5 @@ module.exports = function(app){
     app.get('/movieBooking/api/v1/movies/:id', movieController.getMovieById)
     app.put('/movieBooking/api/v1/movies/:id', [movieRequestValidator.validateMovieStatusRequest], movieController.updateMovie)
     app.delete('/movieBooking/api/v1/movies/:id', movieController.deleteMovie)
+    app.get('/movieBooking/api/v1/movies/:movieId/theatres', movieController.getTheatresForAMovie)
 }

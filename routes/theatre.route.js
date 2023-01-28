@@ -7,4 +7,5 @@ module.exports = function(app){
     app.put('/movieBooking/api/v1/theatres/:id', theatreController.updateTheatre)
     app.delete('/movieBooking/api/v1/theatres/:id', theatreController.deleteTheatre)
     app.put('/movieBooking/api/v1/theatres/:theatreId/movies', theatreController.addMoviesToTheatre)
+    app.get('/movieBooking/api/v1/theatres/:theatreId/movies/:movieId', theatreController.checkIfMovieRunningInATheatre)
 }

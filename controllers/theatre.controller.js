@@ -1,4 +1,5 @@
-const Theatre = require('../models/theatre.model')
+const Theatre = require('../models/theatre.model');
+const Movie = require('../models/movie.model');
 
 exports.createTheatre = async (req, res) => {
     const theatreObject = {
@@ -162,5 +163,44 @@ exports.addMoviesToTheatre = async (req, res) => {
         res.status(500).send({
             message : "Internal Server Error"
         })
+    }
+}
+
+exports.checkIfMovieRunningInATheatre = async (req, res) => {
+    try{
+        const {movieId, theatreId} = req.params;
+
+        const savedTheatre = await Theatre.findOne({
+            _id : theatreId
+        })
+
+        const savedMovie = await Movie.findOne({
+            _id : movieId
+        })
+
+        if(!savedTheatre){
+            res.status(400).send({
+                message : "Invalid Theatre ID"
+            })
+            return;
+        }
+
+        if(!savedMovie){
+            res.status(400).send({
+                message : "Invalid Movie ID"
+            })
+            return;
+        }
+
+        const response = {
+            message : savedTheatre.movies.includes(movieId) ? "Movie is running in the theatre" : "Movie isn't running in the theatre"
+        };
+
+        res.status(200).send(response);
+    } catch(err){
+        console.log("Error in finding if a movie running in a theatre", err.message);
+        res.status(500).send({
+            message : "Internal Server Error"
+        });
     }
 }

@@ -1,4 +1,5 @@
 const Movie = require('../models/movie.model')
+const Theatre = require('../models/theatre.model')
 
 exports.createMovie = async (req, res) => {
     try{
@@ -40,7 +41,7 @@ exports.getMovieById = async (req, res) => {
             res.status(400).send({
                 message : `Movie with the id : ${req.params.id} does not exist`
             })
-            return
+            return;
         }
 
         res.status(200).send(movie);
@@ -63,7 +64,7 @@ exports.updateMovie = async (req, res) => {
         res.status(400).send({
             message : `Couldn't update! Movie with the id : ${id} doesn't exist`
         })
-        return
+        return;
     }
 
     savedMovie.name = req.body.name ? req.body.name : savedMovie.name;
@@ -105,5 +106,36 @@ exports.deleteMovie = async (req, res) => {
         res.status(500).send({
             message : 'Internal Server Error'
         })
+    }
+}
+
+exports.getTheatresForAMovie = async (req, res) => {
+    try{
+        // Get the Movie Id
+        const movieId = req.params.movieId;
+
+        // Validate Movie Id
+        const savedMovie = await Movie.findById({
+            _id : movieId
+        })
+
+        if(!savedMovie){
+            return res.status(400).send({
+                message : "Invalid Movie ID"
+            });
+        }
+
+        // Get all the theatres
+        const savedTheatres = await Theatre.find({});
+
+        const validTheatresWithMovies = savedTheatres.filter(theatre => theatre.movies.includes(movieId));
+
+        res.status(200).send(validTheatresWithMovies);
+
+    } catch(err){
+        console.log("Error in finding a movie running in the theatres", err.message);
+        res.status(500).send({
+            message : "Internal Server Error"
+        });
     }
 }
