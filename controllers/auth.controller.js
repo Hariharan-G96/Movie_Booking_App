@@ -3,7 +3,7 @@ const User = require('../models/user.model');
 const constants = require('../utils/constants');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const authconfig = require('../configs/auth.config')
+const authConfig = require('../configs/auth.config')
 
 exports.signUp = async (req, res) => {
 
@@ -65,7 +65,7 @@ exports.signIn = async (req, res) => {
             });
         }
 
-        const token = jwt.sign({id : user.userId}, authconfig.secret_key, {expiresIn : 7200});
+        const token = jwt.sign({id : user.userId}, authConfig.secret_key, {expiresIn : 7200});
 
         res.status(200).send({
             name : user.name,
@@ -75,6 +75,7 @@ exports.signIn = async (req, res) => {
             userStatus : user.userStatus,
             accessToken : token
         });
+
     } catch(err){
         console.log("Error while signing in", err.message);
         res.status(500).send({
