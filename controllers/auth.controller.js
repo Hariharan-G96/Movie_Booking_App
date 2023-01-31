@@ -65,7 +65,7 @@ exports.signIn = async (req, res) => {
             });
         }
 
-        const token = jwt.sign({id : user.userId}, authConfig.secret_key, {expiresIn : 7200});
+        const token = jwt.sign({id : user.userId}, authConfig.secret_key, {expiresIn : 3600});
 
         res.status(200).send({
             name : user.name,

@@ -16,8 +16,15 @@ const userStatus = {
     rejected : "REJECTED"
 }
 
+const bookingStatus = {
+    success : "SUCCESS",
+    inprogress : "IN-PROGRESS",
+    failed : "FAILED"
+}
+
 module.exports = {
     releaseStatus : releaseStatus,
     userTypes : userTypes,
-    userStatus : userStatus
+    userStatus : userStatus,
+    bookingStatus : bookingStatus
 }
