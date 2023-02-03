@@ -17,8 +17,15 @@ const userStatus = {
 }
 
 const bookingStatus = {
-    success : "SUCCESS",
+    completed : "COMPLETED",
     inprogress : "IN-PROGRESS",
+    cancelled : "CANCELLED",
+    expired : "EXPIRED"
+}
+
+const paymentStatus = {
+    success : "SUCCESS",
+    pending : "PENDING",
     failed : "FAILED"
 }
 
@@ -26,5 +33,7 @@ module.exports = {
     releaseStatus : releaseStatus,
     userTypes : userTypes,
     userStatus : userStatus,
-    bookingStatus : bookingStatus
+    bookingStatus : bookingStatus,
+    ticketPrice : 220.10,
+    paymentStatus : paymentStatus
 }

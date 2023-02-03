@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const constants = require('../utils/constants')
+const {bookingStatus} = require('../utils/constants')
 
 const bookingSchema = new mongoose.Schema({
     theatreId : {
@@ -24,7 +24,7 @@ const bookingSchema = new mongoose.Schema({
     status : {
         type : String,
         required : true,
-        default : constants.bookingStatus.inprogress
+        default : bookingStatus.inprogress
     },
     noOfSeats : {
         type : Number,
