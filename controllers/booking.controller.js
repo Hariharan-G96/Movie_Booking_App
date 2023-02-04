@@ -13,7 +13,7 @@ exports.createBooking = async (req, res) => {
         userId : user._id,
         timing : req.body.timing,
         noOfSeats : req.body.noOfSeats,
-        totalCost : req.body.noOfSeats * constants.ticketCost
+        totalCost : req.body.noOfSeats * constants.ticketPrice
     };
 
     try{
@@ -28,20 +28,42 @@ exports.createBooking = async (req, res) => {
 }
 
 exports.getBookingById = async (req, res) => {
-    try{
-        const booking = await Booking.findOne({
+    const savedUser = await User.findOne({
+        userId : req.userId
+    });
+
+    if(savedUser.userType == constants.userTypes.admin){
+
+    }
+    else{
+        const savedBookingByUser = await Booking.findOne({
             _id : req.params.id
         });
 
-        if(!booking){
+        if(!savedBookingByUser){
             return res.status(400).send({
                 message : "Invalid booking!"
             });
         }
 
+        const userId = savedBookingByUser.userId;
+
+        if(!userId.equals(savedUser._id)){
+            return res.status(403).send({
+                message : "Forbidden! Booking Id isn't associated with the logged in user"});
+        }
+
+        return res.status(200).send(savedBookingByUser);
+    }
+
+    try{
+        const booking = await Booking.findOne({
+            _id : req.params.id
+        });
+
         res.status(200).send(booking);
     } catch(err){
-        console.log("Error while finding a booking", err.message);
+        console.log("Error while fetching a booking", err.message);
         res.status(500).send({
             message : "Internal Server Error"
         });
@@ -49,6 +71,21 @@ exports.getBookingById = async (req, res) => {
 }
 
 exports.getAllBookings = async (req, res) => {
+    const savedUser = await User.findOne({
+        userId : req.userId
+    });
+
+    if(savedUser.userType == constants.userTypes.admin){
+
+    }
+    else{
+        const bookingsByUser = await Booking.find({
+            userId : savedUser._id
+        });
+
+        return res.status(200).send(bookingsByUser);
+    }
+
     try{
         const bookings = await Booking.find({});
         res.status(200).send(bookings);

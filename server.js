@@ -49,6 +49,7 @@ require('./routes/theatre.route')(app)
 require('./routes/auth.route')(app)
 require('./routes/user.route')(app)
 require('./routes/booking.route')(app)
+require('./routes/payment.route')(app)
 
 app.get('/', (req, res) => {
     res.status(200).send("Inside Movie Booking Application")

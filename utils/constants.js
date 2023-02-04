@@ -20,7 +20,8 @@ const bookingStatus = {
     completed : "COMPLETED",
     inprogress : "IN-PROGRESS",
     cancelled : "CANCELLED",
-    expired : "EXPIRED"
+    expired : "EXPIRED",
+    failed : "FAILED"
 }
 
 const paymentStatus = {

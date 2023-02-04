@@ -1,4 +1,4 @@
-const Booking = require('../models/payment.model')
+const Booking = require('../models/booking.model')
 const ObjectId = require('mongoose').Types.ObjectId
 
 validatePaymentRequestBody = async (req, res, next) => {
@@ -10,7 +10,7 @@ validatePaymentRequestBody = async (req, res, next) => {
     }
 
     // Validate the given booking id is an objectId
-    if(ObjectId.isValid(req.body.bookingId)){
+    if(!ObjectId.isValid(req.body.bookingId)){
         return res.status(400).send({
             message : "Failed! Booking Id provided is in invalid format"
         });
@@ -24,13 +24,6 @@ validatePaymentRequestBody = async (req, res, next) => {
     if(!booking){
         return res.status(400).send({
             message : "Failed! Booking Id does not exist"
-        });
-    }
-    
-    // Validate whether the amount is provided
-    if(!amount){
-        return res.status(400).send({
-            message : "Failed! Payment Amount is mandatory"
         });
     }
 
