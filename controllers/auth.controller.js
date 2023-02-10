@@ -4,6 +4,8 @@ const constants = require('../utils/constants');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../configs/auth.config')
+const notificationClient = require('../utils/NotificationClient')
+const {userRegistration} = require('../scripts/emailScripts')
 
 exports.signUp = async (req, res) => {
 
@@ -27,6 +29,8 @@ exports.signUp = async (req, res) => {
 
     try{
         const user = await User.create(userObj);
+        const {subject, html, text} = userRegistration(user);
+        notificationClient.sendEmail([user.email], subject, html, text);
         res.status(201).send(user);
     } catch(err){
         console.log("Error in creating a user", err.message);
