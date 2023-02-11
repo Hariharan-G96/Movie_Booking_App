@@ -2,6 +2,8 @@ const Payment = require('../models/payment.model')
 const Booking = require('../models/booking.model')
 const constants = require('../utils/constants')
 const User = require('../models/user.model')
+const notificationClient = require('../utils/NotificationClient')
+const { paymentSuccess } = require('../scripts/emailScripts')
 
 exports.createNewPayment = async (req, res) => {
     const savedBooking = await Booking.findOne({
@@ -42,6 +44,13 @@ exports.createNewPayment = async (req, res) => {
                                constants.bookingStatus.completed : constants.bookingStatus.failed;
         
         await savedBooking.save();
+
+        const savedUser = await User.findOne({ // For sending Email
+            userId : req.userId
+        });
+
+        const {subject, html, text} = paymentSuccess(savedUser, savedBooking, payment);
+        notificationClient.sendEmail([savedUser.email], subject, html, text);
 
         res.status(201).send(payment);
     } catch(err){

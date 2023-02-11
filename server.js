@@ -6,10 +6,12 @@ const dbConfig = require('./configs/db.config')
 const User = require('./models/user.model')
 const bcrypt = require('bcryptjs')
 const constants = require('./utils/constants')
+const cors = require('cors')
 
 const app = express()
 
 app.use(bodyParser.json())
+app.use(cors())
 
 async function init(){
     let user = await User.findOne({
